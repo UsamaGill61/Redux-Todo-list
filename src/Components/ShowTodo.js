@@ -77,13 +77,7 @@ class ShowTodo extends Component {
                   >
                     Delete Todo
                   </button>
-                  <button
-                    className="btn btn-dark"
-                    type="button"
-                    // onClick={() => this.props.OnDeleteResult(eachitem.id)}
-                  >
-                    Edit Todo
-                  </button>
+            
                 </div>
               </div>
             </li>
