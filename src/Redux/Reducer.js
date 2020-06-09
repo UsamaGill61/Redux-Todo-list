@@ -1,87 +1,67 @@
-import * as ActionType from './Actions/Actions'
+import * as ActionType from "./Actions/Actions";
 
 const initialstate = {
-  counter: 0,
-  results: [],
+  TodoArray: [],
 };
 
 const Reducer = (state = initialstate, action) => {
   switch (action.type) {
-    case ActionType.INCRIMENT_1:
+    case ActionType.ADD_ITEM_TO_ARRAY:
       return {
         ...state,
-        counter: state.counter + action.payload,
-      };
-    case ActionType.DECRIMENT_1:
-      return {
-        ...state,
-        counter: state.counter - action.payload,
-      };
-    case ActionType.INCRIMENT_5:
-      return {
-        ...state,
-        counter: state.counter + action.payload,
-      };
-    case ActionType.DECRIMENT_5:
-      return {
-        ...state,
-        counter: state.counter - action.payload,
-      };
-    case ActionType.INCRIMENT_10:
-      return {
-        ...state,
-        counter: state.counter + action.payload,
-      };
-    case ActionType.DECRIMENT_10:
-      return {
-        ...state,
-        counter: state.counter - action.payload,
-      };
-    case ActionType.INCRIMENT_INPUT:
-      console.log(action.payload)
-      return {
-        ...state,
-        counter: action.payload 
+        TodoArray: state.TodoArray.concat({
+          id: Math.random(),
+          value: action.payload,
+          completed: false,
+          counter: 0,
+        }),
         
       };
-      
-    case ActionType.DECRIMENT_INPUT:
-      console.log(action.payload)
+    case ActionType.DELETE_ITEM_FROM_ARRAY:
+      const NewArray = state.TodoArray.filter(
+        (eachvalue) => eachvalue.id !== action.payload
+      );
       return {
         ...state,
-        counter: state.counter - action.payload,
+        TodoArray: NewArray,
       };
-    case ActionType.STORE_RESULT:
+
+    case ActionType.TOGGLE_COMPLETE_OR_NOT:
+      const newArray = state.TodoArray.map((eachvalue) =>
+        eachvalue.id === action.payload
+          ? { ...eachvalue, completed: !eachvalue.completed }
+          : eachvalue
+      );
       return {
         ...state,
-        results: state.results.concat({
-          id: Math.random(),
-          value: state.counter,
-        }),
+        TodoArray: newArray,
       };
-    case ActionType.RESET_COUNTER:
+
+      case ActionType.INCRIMENT_1:
+          const NEwArray = state.TodoArray.map((eachvalue) =>
+        eachvalue.id === action.payload.id
+          ? { ...eachvalue, counter : eachvalue.counter + action.payload.num  }
+          : eachvalue
+      );
+ console.log(NEwArray)
       return {
         ...state,
-        counter: 0,
+        TodoArray: NEwArray,
       };
-    case ActionType.RESET_STORE:
-      return {
-        ...state,
-        results:[]
-      };
-    case ActionType.RESET_BOTH:
-      return {
-        ...state,
-        counter: 0,
-        results: [],
-      };
-      case ActionType.DELETE_RESULT:
-        const NewArray = state.results.filter(eachvalue => eachvalue.id !== action.payload_id)
-        return {
-             ...state,
-             results : NewArray
-        };
+      case ActionType.DECRIMENT_1:
+        const NEWArray = state.TodoArray.map((eachvalue) =>
+      eachvalue.id === action.payload.id
+        ? { ...eachvalue, counter : eachvalue.counter - action.payload.num  }
+        : eachvalue
+    );
+
+    return {
+      ...state,
+      TodoArray: NEWArray,
+    };
+     
   }
   return state;
 };
+
 export default Reducer;

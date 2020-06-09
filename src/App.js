@@ -1,12 +1,15 @@
 import React, { Component } from "react";
-import Counter from "./Counter/Counter";
+import ShowTodo from "./Components/ShowTodo";
+
+
 
 
 class App extends Component {
   render() {
     return (
       <div>
-       <Counter/>
+     
+      <ShowTodo/>
       </div>
     );
   }
